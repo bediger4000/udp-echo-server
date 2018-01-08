@@ -1,12 +1,12 @@
 # Quick and dirty UDP-based echo server and client in Go
 
 Toy UDP server and client in Go. I did this to acquaint myself
-with Go's standard package `net`, and specificlly the UDP-related
+with Go's standard package `net`, specifically the UDP-related
 functions.
 
 Because I learned as I wrote, here's a weird stylistic mismatch between how
 server.go does UDP sockets, and how client.go does some "general" socket thing.
-I did client2.go with just UDP functions, not at all general.
+To reconcile this mismatch, I did client2.go with just UDP functions to match server.go.
 
 ### Echo protocol
 
@@ -48,6 +48,7 @@ Or:
 
     $ ./client2 fe80::a11:96ff:fe7f:6d74 7890 'some string' [eth0]
 
+The final argument is optional. It's the name of the network interface to route the packets through.
 Note the contents of `net.UDPAddr`:
 
     type UDPAddr struct {
@@ -57,6 +58,6 @@ Note the contents of `net.UDPAddr`:
     }
 
 The Zone element is used for routing link-local addresses
-(look like fe80::), the interface name works as the zone.
+(fe80: prefix). The interface name works as the zone.
 Called with a 4th argument, `client2` uses that argument
 as the "zone".
