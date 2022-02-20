@@ -8,6 +8,8 @@ Because I learned as I wrote, here's a weird stylistic mismatch between how
 server.go does UDP sockets, and how client.go does some "general" socket thing.
 To reconcile this mismatch, I did client2.go with just UDP functions to match server.go.
 
+I also added a Python 3 client, because I have no where else to put it.
+
 ### Echo protocol
 
 The server listens for UDP packets on a particular port number.
@@ -28,9 +30,13 @@ Client or server could hang forever waiting for a packet that never arrives.
 
 ## Building
 
-    $ go build server.go
-    $ go build client.go
-    $ go build client2.go
+```sh
+$ go build server.go
+$ go build client.go
+$ go build client2.go
+```
+
+The [python 3 client](client1.py) is interpreted and does not need "building".
 
 ## Usage
 
@@ -48,7 +54,11 @@ Or:
 
     $ ./client2 fe80::a11:96ff:fe7f:6d74 7890 'some string' [eth0]
 
-The final argument is optional. It's the name of the network interface to route the packets through.
+Or:
+
+    $ ./client1.py localhost 7890 'some string'
+
+The final argument of `./client2` is optional. It's the name of the network interface to route the packets through.
 Note the contents of `net.UDPAddr`:
 
     type UDPAddr struct {
